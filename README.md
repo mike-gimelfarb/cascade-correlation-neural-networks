@@ -1,5 +1,5 @@
 # cascade_correlation_neural_networks
-A general framework for **building and training constructive feed-forward neural networks**. Provides an implementation of CCNN (Cascade-Correlation) [1] with extendable wrappers to tensorflow, keras, scipy, and scikit-learn.
+A general framework for **building and training constructive feed-forward neural networks**. Provides an implementation of sibling-descendant CCNN (Cascade-Correlation) [1,2] with extendable wrappers to tensorflow, keras, scipy, and scikit-learn. Also can support custom topologies, training algorithms or other Python learning algorithms.
 
 # Requirements
 The package has been tested under:
@@ -27,3 +27,10 @@ Unsupervised Learning
 <p align="center">
   <img src="https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/reconstruction.jpg?raw=true"/>
 </p>
+
+# References
+<ol>
+  <li>Fahlman, Scott E., and Christian Lebiere. "The Cascade-Correlation Learning Architecture." NIPS. 1989.</li>
+  <li>Baluja, Shumeet, and Scott E. Fahlman. Reducing network depth in the cascade-correlation learning architecture. CARNEGIE-MELLON UNIV PITTSBURGH PA SCHOOL OF COMPUTER SCIENCE, 1994.</li>
+  <li>Kwok, Tin-Yau, and Dit-Yan Yeung. "Bayesian regularization in constructive neural networks." International Conference on Artificial Neural Networks. Springer, Berlin, Heidelberg, 1996.</li>
+</ol>
