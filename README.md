@@ -14,17 +14,13 @@ Regression
 <p align="center">
   <img src="https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/regression.jpg?raw=true"/>
   <img src="https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/quantile_regression.jpg?raw=true"/>
+  <img src="https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/bayesian_regression.jpg?raw=true"/>
 </p>
 
 Classification
 <p align="center">
   <img src="https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/spirals.jpg?raw=true"/>
   <img src="https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/spirals_classification.jpg?raw=true"/>
-</p>
-
-Bayesian Inference
-<p align="center">
-  <img src="https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/bayesian_regression.jpg?raw=true"/>
 </p>
 
 Unsupervised Learning
