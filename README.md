@@ -11,15 +11,23 @@ The package has been tested under:
 
 # Features
 Regression
-![](https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/regression.jpg?raw=true)
-![](https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/quantile_regression.jpg?raw=true)
+<p align="center">
+  <img src="https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/regression.jpg?raw=true"/>
+  <img src="https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/quantile_regression.jpg?raw=true"/>
+</p>
 
 Classification
-![](https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/spirals.jpg?raw=true)
-![](https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/spirals_classification.jpg?raw=true)
+<p align="center">
+  <img src="https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/spirals.jpg?raw=true"/>
+  <img src="https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/spirals_classification.jpg?raw=true"/>
+</p>
 
 Bayesian Inference
-![](https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/bayesian_regression.jpg?raw=true)
+<p align="center">
+  <img src="https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/bayesian_regression.jpg?raw=true"/>
+</p>
 
 Unsupervised Learning
-![](https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/reconstruction.jpg?raw=true)
+<p align="center">
+  <img src="https://github.com/mike-gimelfarb/cascade_correlation_neural_networks/blob/main/images/reconstruction.jpg?raw=true"/>
+</p>
