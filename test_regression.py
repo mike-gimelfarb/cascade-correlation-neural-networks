@@ -57,7 +57,7 @@ X_range = np.linspace(min_x, max_x, 500)
 y_pred = ccnn.predict(X_range.reshape((-1, 1)))[0].flatten()
 
 # plot predicted against actual
-fig, ax = plt.subplots(figsize=(10, 8))
+fig, ax = plt.subplots(figsize=(5, 5))
 ax.plot(X_range, y_pred, color='blue', label='prediction')
 ax.scatter(X_test.flatten(), y_test.flatten(), color='black', s=5, label='test data points')
 ax.set_xlabel('x')

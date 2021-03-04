@@ -80,7 +80,7 @@ result = ccnn.train(X_train, y_train,
 # PLOTTING
 # ==================================================================================  
 def plot_boundary(xx, yy, samples, classes, probs): 
-    f, ax = plt.subplots(figsize=(8, 6))
+    f, ax = plt.subplots(figsize=(5, 5))
     contour = ax.contourf(xx, yy, probs, 100, cmap="RdBu", vmin=0, vmax=1)
     ax_c = f.colorbar(contour)
     ax_c.set_label("$P(y = 1)$")

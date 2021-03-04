@@ -50,7 +50,7 @@ candidate_unit = TensorflowPerceptron(activations=[activations.gaussian] * 5,
 ccnn = CCNN(64, 64,
             output_unit=output_unit,
             candidate_unit=candidate_unit,
-            metric_function=losses.mad,
+            metric_function=losses.mae,
             lambda_param=0.9,
             output_connection_types=encoder_option)
   

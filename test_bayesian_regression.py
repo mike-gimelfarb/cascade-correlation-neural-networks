@@ -55,14 +55,14 @@ ccnn = CCNN(1, 1,
 # TRAINING
 # ==================================================================================  
 result = ccnn.train(X_train, y_train,
-                    stopping_rule=EarlyStoppingMonitor(1e-10, 8, 8),
+                    stopping_rule=EarlyStoppingMonitor(1e-5, 2, 20),
                     valid_X=X_valid, valid_y=y_valid)
 
 # ==================================================================================
 # PLOTTING
 # ==================================================================================      
 # generate predictions in interval
-X_test = np.linspace(-1.5, 1.5, 500).reshape((-1, 1))
+X_test = np.linspace(-2, 2, 500).reshape((-1, 1))
 y_pred, y_pred_cov = ccnn.predict(X_test.reshape((-1, 1)))
 y_pred = y_pred.flatten()
 y_var = np.diag(y_pred_cov).flatten()
@@ -70,7 +70,7 @@ lower_ci = y_pred - 1.96 * np.sqrt(y_var)
 upper_ci = y_pred + 1.96 * np.sqrt(y_var)
 
 # plot confidence intervals and test data
-fig, ax = plt.subplots(figsize=(10, 8))
+fig, ax = plt.subplots(figsize=(5, 5))
 ax.plot(X_test, y_pred, color='blue', label='mean prediction')
 ax.plot(X_test, lower_ci, color='gray')
 ax.plot(X_test, upper_ci, color='gray')
