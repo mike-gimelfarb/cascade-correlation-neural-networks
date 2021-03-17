@@ -1,4 +1,4 @@
-# cascade_correlation_neural_networks
+# cascade-correlation-neural-networks
 A general framework for **building and training constructive feed-forward neural networks**. Provides an implementation of sibling-descendant CCNN (Cascade-Correlation) [1,2] with extendable wrappers to tensorflow, keras, scipy, and scikit-learn. Also supports custom topologies, training algorithms, and loss functions [3, 4].
 
 # Requirements
