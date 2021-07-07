@@ -75,4 +75,3 @@ def run():
     plt.tight_layout()
     plt.show()
 
-run()

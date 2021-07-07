@@ -2,6 +2,7 @@ import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 import string
+import pathlib
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -16,6 +17,7 @@ from cascor.model import CCNN
 from cascor.monitor import EarlyStoppingMonitor
 from cascor.units.perceptron import TensorflowPerceptron
 
+
 def run():
         
     # ==================================================================================
@@ -23,8 +25,8 @@ def run():
     # ================================================================================== 
     # load data
     num = 20000
-    dataset = pd.read_csv('data/letters.csv')
-    X = dataset.iloc[:num, :-1].values
+    dataset = pd.read_csv(pathlib.Path(__file__).parent / 'data' / 'letters.csv')
+    X = dataset.iloc[:num,:-1].values
     y = dataset.iloc[:num, -1].values
     
     # perform dummy encoding
@@ -42,7 +44,7 @@ def run():
                                        loss_function=losses.negative_cross_entropy,
                                        stopping_rule=EarlyStoppingMonitor(1e-3, 50, 5000, normalize=True),
                                        optimizer=tf.train.AdamOptimizer,
-                                       optimizer_args={'learning_rate' : 0.005},
+                                       optimizer_args={'learning_rate': 0.005},
                                        batch_size=1024)
     
     # layer for candidates
@@ -50,7 +52,7 @@ def run():
                                           loss_function=losses.S_cascor,
                                           stopping_rule=EarlyStoppingMonitor(1e-3, 100, 5000, normalize=True),
                                           optimizer=tf.train.AdamOptimizer,
-                                          optimizer_args={'learning_rate' : 0.005},
+                                          optimizer_args={'learning_rate': 0.005},
                                           batch_size=1024)
     
     # cascade correlation network

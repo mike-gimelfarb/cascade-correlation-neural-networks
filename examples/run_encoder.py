@@ -35,9 +35,9 @@ def run():
     # layer for outputs
     output_unit = TensorflowPerceptron(activations=[tf.nn.sigmoid],
                                        loss_function=losses.mse,
-                                       stopping_rule=EarlyStoppingMonitor(1e-3, 400, 5000, normalize=True),
+                                       stopping_rule=EarlyStoppingMonitor(1e-3, 500, 5000, normalize=True),
                                        optimizer=tf.train.AdamOptimizer,
-                                       optimizer_args={'learning_rate' : 0.01},
+                                       optimizer_args={'learning_rate' : 0.005},
                                        batch_size=512)
     
     # layer for candidates
@@ -45,7 +45,7 @@ def run():
                                           loss_function=losses.S_cascor,
                                           stopping_rule=EarlyStoppingMonitor(1e-3, 500, 5000, normalize=True),
                                           optimizer=tf.train.AdamOptimizer,
-                                          optimizer_args={'learning_rate' : 0.01},
+                                          optimizer_args={'learning_rate' : 0.005},
                                           batch_size=512)
     
     # cascade correlation network

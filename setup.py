@@ -14,12 +14,19 @@ def get_dist(pkgname):
 tf_deps = []
 if get_dist('tensorflow') is None and get_dist('tensorflow-gpu') is None:
     tf_deps = ['tensorflow']
-     
+
+
+# file information from readme
+this_folder = pathlib.Path(__file__).parent
+readme_file = (this_folder / "README.md").read_text()
+ 
 # set up information
 setup(
     name="cascor",
     version="0.0.1",
     description="A simple package for building and training constructive feed-forward neural networks based on tensorflow.",
+    long_description=readme_file,
+    long_description_content_type="text/markdown",
     url="https://github.com/mike-gimelfarb/cascade-correlation-neural-networks",
     author="Michael Gimelfarb",
     license="MIT",
