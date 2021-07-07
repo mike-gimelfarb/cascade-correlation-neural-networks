@@ -12,14 +12,21 @@ from core.model import CCNN
 from core.monitor import EarlyStoppingMonitor
 from core.units.perceptron import TensorflowPerceptron, ScipyPerceptron
 
+
 # ==================================================================================
 # DATA
 # ==================================================================================  
-# load data
-dataset = pd.read_csv('data/sin_low.csv')
-X = dataset.iloc[:, 0].values.reshape((-1, 1))
-Y = dataset.iloc[:, -1].values.reshape((-1, 1))
-X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
+def f(x, sigma):
+    epsilon = np.random.randn(*x.shape) * sigma
+    return 10. * np.sin(2 * np.pi * (x)) + epsilon
+
+
+train_size = 500
+noise = 1.0
+
+X = np.linspace(-0.5, 0.5, train_size).reshape(-1, 1)
+y = f(X, sigma=noise)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
 
 # ==================================================================================
 # MODEL
@@ -32,7 +39,7 @@ candidate_unit = TensorflowPerceptron(activations=[tf.nn.tanh] * 5,
                                       loss_function=losses.S1,
                                       stopping_rule=EarlyStoppingMonitor(1e-3, 400, 10000, normalize=True),
                                       optimizer=tf.train.AdamOptimizer,
-                                      optimizer_args={'learning_rate' : 0.01},
+                                      optimizer_args={'learning_rate': 0.01},
                                       batch_size=999999)
 
 # cascade correlation network
