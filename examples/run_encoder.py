@@ -9,10 +9,10 @@ import tensorflow.compat.v1 as tf
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_digits
  
-from core import activations, losses
-from core.model import CCNN, encoder_option
-from core.monitor import EarlyStoppingMonitor
-from core.units.perceptron import TensorflowPerceptron
+from cascor import activations, losses
+from cascor.model import CCNN, encoder_option
+from cascor.monitor import EarlyStoppingMonitor
+from cascor.units.perceptron import TensorflowPerceptron
 
 def run():
         

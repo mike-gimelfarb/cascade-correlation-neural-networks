@@ -4,8 +4,8 @@ import numpy as np
 import scipy.optimize as opt
 import tensorflow.compat.v1 as tf  # if using tensorflow version >= 2
 
-from core.units.unit import CCNNUnit
-from core._settings import dtype
+from cascor.units.unit import CCNNUnit
+from cascor._settings import dtype
 
 
 class TensorflowPerceptron(CCNNUnit):

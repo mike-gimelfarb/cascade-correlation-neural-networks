@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 import tensorflow.compat.v1 as tf
 from sklearn.model_selection import train_test_split
  
-from core import activations, losses
-from core.model import CCNN
-from core.monitor import EarlyStoppingMonitor
-from core.units.perceptron import TensorflowPerceptron, ScipyPerceptron
+from cascor import activations, losses
+from cascor.model import CCNN
+from cascor.monitor import EarlyStoppingMonitor
+from cascor.units.perceptron import TensorflowPerceptron, ScipyPerceptron
 
 def run():
         
@@ -53,7 +53,7 @@ def run():
     ccnn = CCNN(1, 1,
                 output_unit=output_unit, candidate_unit=candidate_unit,
                 metric_function=losses.build_quantile_loss(0.05),
-                lambda_param=0.9)
+                lambda_param=0.8)
       
     # ==================================================================================
     # TRAINING

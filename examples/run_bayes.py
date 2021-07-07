@@ -50,7 +50,7 @@ def run():
     ccnn = CCNN(1, 1,
                 output_unit=output_unit, candidate_unit=candidate_unit,
                 metric_function=losses.fvu,
-                lambda_param=0.9)
+                lambda_param=0.8)
     
     # ==================================================================================
     # TRAINING

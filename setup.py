@@ -1,6 +1,20 @@
+from pkg_resources import DistributionNotFound, get_distribution
 import pathlib
 from setuptools import setup
 
+
+# check for a working tensorflow version
+def get_dist(pkgname):
+    try:
+        return get_distribution(pkgname)
+    except DistributionNotFound:
+        return None
+
+
+tf_deps = []
+if get_dist('tensorflow') is None and get_dist('tensorflow-gpu') is None:
+    tf_deps = ['tensorflow']
+     
 # set up information
 setup(
     name="cascor",
@@ -14,14 +28,13 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
-    packages=["cascor"],
+    packages=["cascor", "examples"],
     include_package_data=True,
     install_requires=["numpy>=1.19.2",
                       "scipy>=1.6.2",
                       "pandas>=1.2.4",
                       "seaborn>=0.11.1",
-                      "matplotlib>=3.3.4"],
-                      #"tensorflow>=2.3.1"],
+                      "matplotlib>=3.3.4"] + tf_deps,
     entry_points={
         
     },

@@ -4,8 +4,8 @@ import itertools
 import numpy as np
 import tensorflow.compat.v1 as tf  # if using tensorflow version >= 2
 
-from core.monitor import LossHistoryMonitor
-from core._settings import dtype
+from cascor.monitor import LossHistoryMonitor
+from cascor._settings import dtype
 
 
 # ==================================================================================

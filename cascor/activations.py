@@ -1,7 +1,7 @@
 import math
 import tensorflow.compat.v1 as tf
 
-from core._settings import dtype, epsilon
+from cascor._settings import dtype, epsilon
 
 
 def linear(inputs):
