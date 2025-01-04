@@ -12,10 +12,10 @@ from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
  
-from cascor import activations, losses
-from cascor.model import CCNN
-from cascor.monitor import EarlyStoppingMonitor
-from cascor.units.perceptron import TensorflowPerceptron
+from pyccnn.core import activations, losses
+from pyccnn.core.model import CCNN
+from pyccnn.core.monitor import EarlyStoppingMonitor
+from pyccnn.core.units.perceptron import TensorflowPerceptron
 
 
 def run():
@@ -42,9 +42,9 @@ def run():
     # layer for outputs
     output_unit = TensorflowPerceptron(activations=[tf.nn.softmax],
                                        loss_function=losses.negative_cross_entropy,
-                                       stopping_rule=EarlyStoppingMonitor(1e-2, 50, 5000, normalize=True),
+                                       stopping_rule=EarlyStoppingMonitor(1e-3, 20, 5000, normalize=True),
                                        optimizer=tf.train.AdamOptimizer,
-                                       optimizer_args={'learning_rate': 0.005},
+                                       optimizer_args={'learning_rate': 0.003},
                                        batch_size=512)
     
     # layer for candidates
@@ -52,7 +52,7 @@ def run():
                                           loss_function=losses.S_cascor,
                                           stopping_rule=EarlyStoppingMonitor(1e-2, 50, 5000, normalize=True),
                                           optimizer=tf.train.AdamOptimizer,
-                                          optimizer_args={'learning_rate': 0.005},
+                                          optimizer_args={'learning_rate': 0.003},
                                           batch_size=512)
     
     # cascade correlation network

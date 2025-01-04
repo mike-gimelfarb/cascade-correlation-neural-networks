@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 import tensorflow.compat.v1 as tf
 from sklearn.model_selection import train_test_split
  
-from cascor import activations, losses
-from cascor.model import CCNN
-from cascor.monitor import EarlyStoppingMonitor
-from cascor.units.perceptron import TensorflowPerceptron, ScipyPerceptron
+from pyccnn.core import activations, losses
+from pyccnn.core.model import CCNN
+from pyccnn.core.monitor import EarlyStoppingMonitor
+from pyccnn.core.units.perceptron import TensorflowPerceptron, ScipyPerceptron
 
 def run():
         
@@ -37,7 +37,7 @@ def run():
     # layer for candidates
     candidate_unit = TensorflowPerceptron(activations=[tf.nn.tanh] * 5,
                                           loss_function=losses.S1,
-                                          stopping_rule=EarlyStoppingMonitor(1e-3, 400, 10000, normalize=True),
+                                          stopping_rule=EarlyStoppingMonitor(1e-3, 500, 10000, normalize=True),
                                           optimizer=tf.train.AdamOptimizer,
                                           optimizer_args={'learning_rate': 0.01},
                                           batch_size=999999)

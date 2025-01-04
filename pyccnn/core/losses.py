@@ -1,6 +1,6 @@
 import tensorflow.compat.v1 as tf
 
-from cascor._settings import dtype, epsilon
+from pyccnn.core._settings import dtype, epsilon
     
    
 # ==================================================================================

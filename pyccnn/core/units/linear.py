@@ -1,9 +1,8 @@
-import warnings
 import numpy as np
 import tensorflow.compat.v1 as tf
 
-from cascor.units.unit import CCNNUnit
-from cascor._settings import dtype
+from pyccnn.core.units.unit import CCNNUnit
+from pyccnn.core._settings import dtype
 
 
 class BayesianLinear(CCNNUnit):
