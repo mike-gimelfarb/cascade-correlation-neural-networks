@@ -2,28 +2,10 @@
 A general framework for **building and training constructive feed-forward neural networks**. Provides an implementation of sibling-descendant CCNN (Cascade-Correlation) [1,2] with extendable wrappers to tensorflow, keras, scipy, and scikit-learn. Also supports custom topologies, training algorithms, and loss functions [3, 4].
 
 # Installation
-The simplest way to install this package currently is to clone the repository and use pip. First, clone the repository:
 
 ```console
-git clone https://github.com/mike-gimelfarb/cascade-correlation-neural-networks.git
+pip install pyccnn
 ```
-
-Next, navigate to the folder and use pip
-
-```console
-cd cascade-correlation-neural-networks
-pip install .
-```
-
-We are currently in the process of hosting this project from PyPI, please stay tuned.
-
-# Requirements
-The package has been tested using:
-- Python 3.7
-- Tensorflow 2.3.1
-- scikit-learn 0.23.2
-- pandas 1.1.3
-- scipy 1.5.2
 
 # Features
 Regression
