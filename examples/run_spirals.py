@@ -1,17 +1,14 @@
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
-import string
 import numpy as np
 import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
 import tensorflow.compat.v1 as tf
-from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
  
-from cascor import activations, losses
+from cascor import losses
 from cascor.model import CCNN
 from cascor.monitor import EarlyStoppingMonitor
 from cascor.units.perceptron import TensorflowPerceptron
@@ -74,7 +71,7 @@ def run():
     # TRAINING
     # ==================================================================================  
     result = ccnn.train(X_train, y_train,
-                        stopping_rule=EarlyStoppingMonitor(1e-10, 10, 10),
+                        stopping_rule=EarlyStoppingMonitor(1e-10, 15, 15),
                         valid_X=X_test, valid_y=y_test)
     
     
@@ -104,3 +101,7 @@ def run():
     grid = np.c_[xx.ravel(), yy.ravel()]
     y_pred = ccnn.predict(grid)[0][:, 0].reshape(xx.shape)
     plot_boundary(xx, yy, samples, classes, y_pred)
+
+
+if __name__ == '__main__':
+    run()

@@ -2,7 +2,6 @@ import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 import tensorflow.compat.v1 as tf
 from sklearn.model_selection import train_test_split
@@ -75,3 +74,6 @@ def run():
     plt.tight_layout()
     plt.show()
 
+
+if __name__ == '__main__':
+    run()

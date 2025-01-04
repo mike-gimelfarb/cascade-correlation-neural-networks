@@ -2,7 +2,6 @@ import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 import tensorflow.compat.v1 as tf
 from sklearn.model_selection import train_test_split
@@ -46,7 +45,7 @@ def run():
                                           loss_function=losses.S_cascor,
                                           stopping_rule=EarlyStoppingMonitor(1e-3, 500, 10000, normalize=True),
                                           optimizer=tf.train.AdamOptimizer,
-                                          optimizer_args={'learning_rate' : 0.01},
+                                          optimizer_args={'learning_rate' : 0.02},
                                           batch_size=999999)
     
     # cascade correlation network
@@ -80,3 +79,7 @@ def run():
     ax.legend(loc='best')
     plt.tight_layout()
     plt.show()
+
+
+if __name__ == '__main__':
+    run()

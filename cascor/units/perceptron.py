@@ -1,5 +1,6 @@
 import time
 import itertools
+from tqdm import tqdm
 import numpy as np
 import scipy.optimize as opt
 import tensorflow.compat.v1 as tf  # if using tensorflow version >= 2
@@ -12,7 +13,7 @@ class TensorflowPerceptron(CCNNUnit):
     
     def __init__(self, activations, loss_function, stopping_rule, optimizer=tf.train.AdamOptimizer,
                  optimizer_args={}, batch_size=32, regularizer=None, reg_penalty=0.0,
-                 weight_init=tf.glorot_uniform_initializer(), print_freq=100):
+                 weight_init=tf.glorot_uniform_initializer()):
         self.activations = activations
         self.loss_function = loss_function
         self.stopping_rule = stopping_rule
@@ -22,7 +23,6 @@ class TensorflowPerceptron(CCNNUnit):
         self.regularizer = regularizer
         self.reg_penalty = reg_penalty
         self.weight_init = weight_init
-        self.print_freq = print_freq
         
     @staticmethod
     def _build_perceptron(inputs, num_outputs, activation, weight_init):
@@ -98,22 +98,23 @@ class TensorflowPerceptron(CCNNUnit):
     def train(self, X, y):
         self.stopping_rule.initialize()
         start_time = time.time()
-        for t in itertools.count():
+        with tqdm() as progress_bar:
+            for t in itertools.count():
+                
+                # use gradient descent
+                for batch in self._batch_iterator(y.shape[0], self.batch_size):
+                    self._run(self.train_ops, [x[batch] for x in X], y[batch])
             
-            # use gradient descent
-            for batch in self._batch_iterator(y.shape[0], self.batch_size):
-                self._run(self.train_ops, [x[batch] for x in X], y[batch])
-        
-            # evaluate loss
-            losses = self.evaluate_losses(X, y)
-            best_loss = np.min(losses)
-            best_index = np.argmin(losses)
-            if t % self.print_freq == 0:
-                print('epoch {0} \t best loss {1:.8f} \t best neuron {2}'.format(t, best_loss, best_index))
-            
-            # check if output weights have converged
-            if self.stopping_rule.update(best_loss): 
-                break
+                # evaluate loss
+                losses = self.evaluate_losses(X, y)
+                best_loss = np.min(losses)
+                best_index = np.argmin(losses)
+                progress_bar.set_description('epoch {0} \t best loss {1:.8f} \t best neuron {2}'.format(t, best_loss, best_index))
+                progress_bar.update(1)
+                
+                # check if output weights have converged
+                if self.stopping_rule.update(best_loss): 
+                    break
         
         # print the final performance after training all output neurons  
         end_time = 1000. * (time.time() - start_time) / float(t)    

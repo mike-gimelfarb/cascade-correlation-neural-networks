@@ -42,18 +42,18 @@ def run():
     # layer for outputs
     output_unit = TensorflowPerceptron(activations=[tf.nn.softmax],
                                        loss_function=losses.negative_cross_entropy,
-                                       stopping_rule=EarlyStoppingMonitor(1e-3, 50, 5000, normalize=True),
+                                       stopping_rule=EarlyStoppingMonitor(1e-2, 50, 5000, normalize=True),
                                        optimizer=tf.train.AdamOptimizer,
                                        optimizer_args={'learning_rate': 0.005},
-                                       batch_size=1024)
+                                       batch_size=512)
     
     # layer for candidates
     candidate_unit = TensorflowPerceptron(activations=[activations.gaussian] * 5,
                                           loss_function=losses.S_cascor,
-                                          stopping_rule=EarlyStoppingMonitor(1e-3, 100, 5000, normalize=True),
+                                          stopping_rule=EarlyStoppingMonitor(1e-2, 50, 5000, normalize=True),
                                           optimizer=tf.train.AdamOptimizer,
                                           optimizer_args={'learning_rate': 0.005},
-                                          batch_size=1024)
+                                          batch_size=512)
     
     # cascade correlation network
     ccnn = CCNN(16, 26,
@@ -86,3 +86,7 @@ def run():
     ax.set_title('Confusion Matrix for Letter Classification')
     plt.tight_layout()
     plt.show()
+
+
+if __name__ == '__main__':
+    run()

@@ -32,17 +32,16 @@ setup(
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3"
     ],
     packages=["cascor", "examples"],
     include_package_data=True,
     install_requires=["numpy>=1.19.2",
                       "scipy>=1.6.2",
+                      "scikit-learn",
                       "pandas>=1.2.4",
                       "seaborn>=0.11.1",
-                      "matplotlib>=3.3.4"] + tf_deps,
-    entry_points={
-        
-    },
+                      "matplotlib>=3.3.4",
+                      "tqdm"] + tf_deps,
+    entry_points={},
 )
