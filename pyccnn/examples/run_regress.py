@@ -1,70 +1,32 @@
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
-
 import numpy as np
 import matplotlib.pyplot as plt
-import tensorflow.compat.v1 as tf
 from sklearn.model_selection import train_test_split
- 
-from pyccnn.core import activations, losses
+
 from pyccnn.core.model import CCNN
-from pyccnn.core.monitor import EarlyStoppingMonitor
-from pyccnn.core.units.perceptron import TensorflowPerceptron, ScipyPerceptron
+from pyccnn.core.parser import load_config
 
 def run():
         
-    # ==================================================================================
-    # DATA
-    # ==================================================================================  
-    def f(x, sigma):
-        epsilon = np.random.randn(*x.shape) * sigma
-        return 10. * np.sin(2 * np.pi * (x)) + epsilon
-    
-    
-    train_size = 500
-    noise = 1.0
-    
-    X = np.linspace(-0.5, 0.5, train_size).reshape(-1, 1)
-    y = f(X, sigma=noise)
+    # data        
+    X = np.linspace(-0.5, 0.5, 500).reshape(-1, 1)
+    y = 10. * np.sin(2 * np.pi * X) + np.random.randn(*X.shape)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
     
-    # ==================================================================================
-    # MODEL
-    # ==================================================================================  
-    # layer for outputs
-    output_unit = ScipyPerceptron(activations=[activations.linear], loss_function=losses.mse)
+    # model
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'configs', 'regress.ini')
+    network_args, train_args = load_config(path)
+    ccnn = CCNN(**network_args)
+    ccnn.train(X_train, y_train, valid_X=X_test, valid_y=y_test, **train_args)
     
-    # layer for candidates
-    candidate_unit = TensorflowPerceptron(activations=[tf.nn.tanh] * 5,
-                                          loss_function=losses.S1,
-                                          stopping_rule=EarlyStoppingMonitor(1e-3, 500, 10000, normalize=True),
-                                          optimizer=tf.train.AdamOptimizer,
-                                          optimizer_args={'learning_rate': 0.01},
-                                          batch_size=999999)
-    
-    # cascade correlation network
-    ccnn = CCNN(1, 1,
-                output_unit=output_unit, candidate_unit=candidate_unit,
-                metric_function=losses.fvu,
-                lambda_param=0.8)
-      
-    # ==================================================================================
-    # TRAINING
-    # ==================================================================================  
-    result = ccnn.train(X_train, y_train,
-                        stopping_rule=EarlyStoppingMonitor(1e-10, 10, 10),
-                        valid_X=X_test, valid_y=y_test)
-    
-    # ==================================================================================
-    # PLOTTING
-    # ================================================================================== 
     # generate predictions in interval
     min_x, max_x = np.min(X_test), np.max(X_test)
     X_range = np.linspace(min_x, max_x, 500)
     y_pred = ccnn.predict(X_range.reshape((-1, 1)))[0].flatten()
     
     # plot predicted against actual
-    fig, ax = plt.subplots(figsize=(5, 5))
+    _, ax = plt.subplots(figsize=(5, 5))
     ax.plot(X_range, y_pred, color='blue', label='prediction')
     ax.scatter(X_test.flatten(), y_test.flatten(), color='black', s=5, label='test data points')
     ax.set_xlabel('x')
@@ -73,7 +35,6 @@ def run():
     ax.legend(loc='best')
     plt.tight_layout()
     plt.show()
-
 
 if __name__ == '__main__':
     run()

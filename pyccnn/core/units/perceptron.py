@@ -5,8 +5,9 @@ import numpy as np
 import scipy.optimize as opt
 import tensorflow.compat.v1 as tf  # if using tensorflow version >= 2
 
-from pyccnn.core.units.unit import CCNNUnit
 from pyccnn.core._settings import dtype
+from pyccnn.core.units.unit import CCNNUnit
+from pyccnn.core import activations, losses, monitor
 
 
 class TensorflowPerceptron(CCNNUnit):
@@ -23,7 +24,29 @@ class TensorflowPerceptron(CCNNUnit):
         self.regularizer = regularizer
         self.reg_penalty = reg_penalty
         self.weight_init = weight_init
-        
+    
+    @staticmethod
+    def parse_args(args):
+        args2 = args.copy()
+        args2['activations'] = [CCNNUnit.getattr_any([tf.nn, activations], activation) 
+                                for activation in args['activations']]
+        if 'loss_function_args' in args:
+            loss_fn_factory = CCNNUnit.getattr_any([losses], args['loss_function'])
+            loss_fn_args = args2.pop('loss_function_args')
+            args2['loss_function'] = loss_fn_factory(**loss_fn_args)
+        else:
+            args2['loss_function'] = CCNNUnit.getattr_any([tf, losses], args['loss_function']) 
+        stopping_rule_type = CCNNUnit.getattr_any([monitor], args['stopping_rule'])
+        stopping_rule_kwargs = args2.pop('stopping_rule_kwargs', {})
+        args2['stopping_rule'] = stopping_rule_type(**stopping_rule_kwargs)
+        if 'optimizer' in args:
+            args2['optimizer'] = CCNNUnit.getattr_any([tf.train], args['optimizer'])
+        if 'regularizer' in args:
+            args2['regularizer'] = CCNNUnit.getattr_any([tf.nn], args['regularizer'])
+        if 'weight_init' in args:
+            args2['weight_init'] = CCNNUnit.getattr_any([tf, tf.initializers], args['weight_init'])
+        return args2
+
     @staticmethod
     def _build_perceptron(inputs, num_outputs, activation, weight_init):
         
@@ -150,6 +173,23 @@ class ScipyPerceptron(TensorflowPerceptron):
         self.reg_penalty = reg_penalty
         self.weight_init = weight_init
         
+    @staticmethod
+    def parse_args(args):
+        args2 = args.copy()
+        args2['activations'] = [CCNNUnit.getattr_any([tf, activations], activation) 
+                                for activation in args['activations']]
+        if 'loss_function_args' in args:
+            loss_fn_factory = CCNNUnit.getattr_any([losses], args['loss_function'])
+            loss_fn_args = args2.pop('loss_function_args')
+            args2['loss_function'] = loss_fn_factory(**loss_fn_args)
+        else:
+            args2['loss_function'] = CCNNUnit.getattr_any([tf, losses], args['loss_function']) 
+        if 'regularizer' in args:
+            args2['regularizer'] = CCNNUnit.getattr_any([tf.nn], args['regularizer'])
+        if 'weight_init' in args:
+            args2['weight_init'] = CCNNUnit.getattr_any([tf, tf.initializers], args['weight_init'])
+        return args2
+
     @staticmethod
     def _build_assignable_perceptron(inputs, num_outputs, activation, weight_init):
         y_pred, weights = TensorflowPerceptron._build_perceptron(inputs, num_outputs, activation, weight_init)

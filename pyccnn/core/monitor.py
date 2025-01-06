@@ -36,6 +36,7 @@ class EarlyStoppingMonitor(StoppingMonitor):
             self.epochs_without_improvement = 0
         return self.t >= self.max_iters or self.epochs_without_improvement > self.patience
 
+
 class TargetStoppingMonitor(StoppingMonitor):
     
     def __init__(self, target_loss, max_iters):

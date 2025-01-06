@@ -11,6 +11,10 @@ class BayesianLinear(CCNNUnit):
         self.alpha = alpha
         self.beta = beta
     
+    @staticmethod
+    def parse_args(args):
+        return args
+    
     def build(self, num_inputs, num_outputs, num_targets):
         if num_outputs != num_targets:
             raise Exception('num. outputs != num. targets: cannot use bayesian linear regression as candidate!')
