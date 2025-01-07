@@ -19,7 +19,7 @@ if get_dist('tensorflow') is None and get_dist('tensorflow-gpu') is None:
 # set up information
 setup(
     name="pyccnn",
-    version="0.1",
+    version="1.0",
     author="Michael Gimelfarb",
     author_email="mike.gimelfarb@mail.utoronto.ca",
     description="A package for building and training cascade correlation neural networks in tensorflow and scipy.",
@@ -27,8 +27,9 @@ setup(
     long_description_content_type="text/markdown",
     license="MIT License",
     url="https://github.com/mike-gimelfarb/cascade-correlation-neural-networks",    
+    python_requires=">=3.8",
     packages=find_packages(),
-    package_data={'': ['*.csv']},
+    package_data={'': ['*.csv', '*.ini', '*.cfg']},
     include_package_data=True,
     install_requires=["numpy>=1.19.2",
                       "scipy>=1.6.2",
